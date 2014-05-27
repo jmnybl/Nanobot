@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: b14bd2f54a7651343b5382cea557cecd
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - texture: {instanceID: 0}
+  - pauseMenuTexture: {fileID: 2800000, guid: e3e456358a55f6b4b992805d6b7cf9b8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
