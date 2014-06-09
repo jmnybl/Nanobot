@@ -7,6 +7,10 @@ public class GameController : MonoBehaviour
 	public GUITexture texture;
 	public float fadeSpeed = 0.5f;
 
+	private Texture2D heavy_icon;
+	private Texture2D light_icon;
+	private Texture2D magnet_icon;
+
 	private bool isFading = false;
 	private bool sceneStarting = false;
 	
@@ -33,6 +37,11 @@ public class GameController : MonoBehaviour
 		// disable screen dimming (because accelerometer does not do that)
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		StartScene();
+
+		// load player icons
+		heavy_icon = (Texture2D)Resources.Load("heavy_icon");
+		light_icon = (Texture2D)Resources.Load("light_icon");
+		magnet_icon = (Texture2D)Resources.Load("magnet_icon");
 	}
 	
 	void Update() 
@@ -88,33 +97,10 @@ public class GameController : MonoBehaviour
 		}
 
 
-		// show active player picture, version A
-		/**
-		if (activePlayer == "heavycircle")
-		{
-			GUI.Label(new Rect((Screen.width/4)-30,30,50,50),"magnet",textstyle);
-			//GUI.Label(new Rect(Screen.width/2,30,50,50),"heavy"); // active player
-			GUI.Label(new Rect(((Screen.width/4)*3)-30,30,50,50),"light",textstyle);
-		}
-		else if (activePlayer == "lightcircle")
-		{
-			GUI.Label(new Rect((Screen.width/4)-30,30,250,250),"heavy",textstyle);
-			//GUI.Label(new Rect(Screen.width/2,30,50,50),"light"); // active player
-			GUI.Label(new Rect(((Screen.width/4)*3)-30,30,250,250),"magnet",textstyle);
-		}
-		else
-		{
-			GUI.Label(new Rect((Screen.width/4)-30,30,250,250),"light",textstyle);
-			//GUI.Label(new Rect(Screen.width/2,30,50,50),"magnet"); // active player
-			GUI.Label(new Rect(((Screen.width/4)*3)-30,30,250,250),"heavy",textstyle);
-		}
-		**/
-
-
-		// show active player picture, version B
-		GUI.Label(new Rect((Screen.width/4)-50,30,50,50),"heavy",textstyle);
-		GUI.Label(new Rect((Screen.width/2)-50,30,50,50),"magnet", textstyle);
-		GUI.Label(new Rect(((Screen.width/4)*3)-50,30,50,50),"light",textstyle);
+		// show active player pictures
+		GUI.DrawTexture (new Rect (50, 30, 100, 100), heavy_icon);
+		GUI.DrawTexture (new Rect (Screen.width/2-50, 30, 100, 100), magnet_icon);
+		GUI.DrawTexture (new Rect (Screen.width-150, 30, 100, 100), light_icon);
 
 	}
 	
