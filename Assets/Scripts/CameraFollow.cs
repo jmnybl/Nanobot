@@ -11,6 +11,7 @@ public class CameraFollow : MonoBehaviour
 	private float cameraDistance = -10.0f;
 	private float zoom_out = 100.0f;
 	private float zoom_in_max = 50.0f;
+	private float smooth = 3.0f;
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class CameraFollow : MonoBehaviour
         if (square.activeSelf) {
 			// this has no rigidbody, so fixed camera zooming
 			transform.position = new Vector3 (square.transform.position.x, square.transform.position.y, cameraDistance);
-			camera.fieldOfView = zoom_out;
+			camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,zoom_out,Time.deltaTime*smooth);
 
 		} 
 		else {
@@ -44,15 +45,15 @@ public class CameraFollow : MonoBehaviour
 				vel = new Vector2(0,0);
 			}
 			// TODO: smoothing
-			float speed = (Math.Abs (vel.x) + Math.Abs (vel.y)) * 20; // calculate the 'actual' speed and multiply it with 'something' to get suitable zooming
+			float speed = (Math.Abs (vel.x) + Math.Abs (vel.y)) * 10; // calculate the 'actual' speed and multiply it with 'something' to get suitable zooming
 			if (zoom_in_max > speed) {
-				camera.fieldOfView = zoom_in_max;
+				camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,zoom_in_max,Time.deltaTime*smooth);
 			} 
 			else if (zoom_out < speed) {
-				camera.fieldOfView = zoom_out;
+				camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,zoom_out,Time.deltaTime*smooth);
 			} 
 			else {
-				camera.fieldOfView = speed;
+				camera.fieldOfView = Mathf.Lerp(camera.fieldOfView,speed,Time.deltaTime*smooth);
 			}
 			
 		}
