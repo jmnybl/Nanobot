@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
 	private GUIStyle textstyle = new GUIStyle();
 	
 	private bool isPause = false;
-	private Rect windowRect = new Rect(Screen.width/2-100, Screen.height/2, 200, 100);
+	private Rect windowRect = new Rect(Screen.width/2-200, Screen.height/2-100, 400, 200);
 
 	public string activePlayer;
 	
@@ -151,17 +151,22 @@ public class GameController : MonoBehaviour
 	
 	void TheMainMenu(int windowID)
 	{
-		if(GUILayout.Button("Main Menu"))
+		if(GUILayout.Button("Main Menu",GUILayout.Height(windowRect.height/5)))
 		{
 			Application.LoadLevel("MainMenu");
 			Time.timeScale = 1;
 		}
-		if(GUILayout.Button("Restart"))
+		if(GUILayout.Button("Level Menu",GUILayout.Height(windowRect.height/5)))
 		{
-			Application.LoadLevel("Level1");
+			Application.LoadLevel("LevelMenu");
 			Time.timeScale = 1;
 		}
-		if(GUILayout.Button("Quit"))
+		if(GUILayout.Button("Restart level",GUILayout.Height(windowRect.height/5)))
+		{
+			Application.LoadLevel(Application.loadedLevelName);
+			Time.timeScale = 1;
+		}
+		if(GUILayout.Button("Quit",GUILayout.Height(windowRect.height/5)))
 		{
 			Application.Quit();
 		}

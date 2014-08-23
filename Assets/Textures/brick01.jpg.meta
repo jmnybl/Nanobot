@@ -1,6 +1,8 @@
 fileFormatVersion: 2
 guid: 42cd5eed0d8704e44af9751af34df264
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: brick01
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

@@ -1,6 +1,8 @@
 fileFormatVersion: 2
 guid: d0fcfdb2e108a044789770627fb4bbd8
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: wood01_plank03
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewGame : MonoBehaviour
+public class LoadLevel : MonoBehaviour
 {
+	public string levelname;
+
 	void OnMouseEnter()
 	{
 		renderer.material.color = Color.grey;
@@ -17,6 +19,6 @@ public class NewGame : MonoBehaviour
 	
 	void OnMouseDown()
 	{
-		Application.LoadLevel("LevelMenu");
+		Application.LoadLevel(levelname);
 	}
 }
