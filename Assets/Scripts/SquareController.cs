@@ -58,7 +58,7 @@ public class SquareController : MonoBehaviour
 		{
 			int oldLayer = gameObject.layer;
 			gameObject.layer = Physics2D.IgnoreRaycastLayer;
-			int layerToIgnore = 1 << gameObject.layer;
+			int layerToIgnore = (1 << gameObject.layer) + (1 <<  2); // 2 is 'ignore raycast' layer aka non-magnetic surface
 			layerToIgnore = ~layerToIgnore;
 		
 			float angle = 0;
@@ -102,14 +102,22 @@ public class SquareController : MonoBehaviour
 	
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if(coll.gameObject.tag == "Level")
-		{
-			if(!kinematic)
-			{
+		if (coll.gameObject.tag == "Level") {
+			if (!kinematic) {
 				newcollision = true;
 				collision = coll;
 				kinematic = true;
+				}
+			} else {
+				castRays = true;
 			}
+	}
+
+	void OnCollisionStay2D(Collision2D coll)
+	{
+		// if a nonmagnetic surface moves player to different direction, this one recalculates the closest magnetic surface
+		if (coll.gameObject.tag != "Level") {
+			castRays = true;
 		}
 	}
 	
