@@ -62,8 +62,7 @@ public class LevelController : MonoBehaviour
 			if(isActive == true)
 			{
 				float targetAngle = Input.GetAxis("Horizontal") * (flipXAxis ? -1 : 1);
-				currentAngle = Mathf.Lerp(currentAngle, targetAngle, Time.deltaTime);
-				transform.Rotate(new Vector3 (0, 0, currentAngle));
+				rigidbody2D.AddTorque(targetAngle * moveSpeed/2 * Time.deltaTime);
 			} // computer controls end
 
 		}
