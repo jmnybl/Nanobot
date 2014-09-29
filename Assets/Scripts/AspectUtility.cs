@@ -55,8 +55,7 @@ public class AspectUtility : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("Critical Error! \r\nError code 0001");
-			//Debug.Log("\r\nAspect ratio not supported!");
+			Debug.Log("Bla blah! \r\nBla blah!");
 		}
 	}
 	

@@ -24,11 +24,17 @@ public class GameController : MonoBehaviour
 	private bool isPause = false;
 	private Rect windowRect = new Rect(Screen.width/2-200, Screen.height/2-100, 400, 200);
 
-	public string activePlayer;
+	public string activePlayer = "";
+	private string tempactivePlayer = "";
+	private float timer = 1.0f;
+	
+	void Awake()
+	{
+		instance = this;
+	}
 	
 	void Start()
 	{
-		instance = this;
 		texture.color = Color.black;
 		style.fontSize = 20;
 		textstyle.fontSize = 30;
@@ -36,8 +42,9 @@ public class GameController : MonoBehaviour
 		PlayerController.isPaused = false;
 		// disable screen dimming (because accelerometer does not do that)
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+		//tempactivePlayer = activePlayer;
 		StartScene();
-
+		
 		// load player icons
 		heavy_icon = (Texture2D)Resources.Load("heavy_icon");
 		light_icon = (Texture2D)Resources.Load("light_icon");
@@ -76,6 +83,16 @@ public class GameController : MonoBehaviour
 				FadeToBlack();
 			}
 		}
+
+		if(tempactivePlayer != activePlayer)
+		{
+			timer = 1f;
+			tempactivePlayer = activePlayer;
+		}
+		if(timer > 0.1f)
+		{
+			timer = timer - 0.1f;
+		}
 	}
 	
 	void OnGUI()
@@ -95,13 +112,29 @@ public class GameController : MonoBehaviour
 			GUI.color = Color.blue;
 			GUI.Window(0, windowRect, TheMainMenu, "");
 		}
-
-
+		
 		// show active player pictures
-		GUI.DrawTexture (new Rect (50, 30, 100, 100), heavy_icon);
-		GUI.DrawTexture (new Rect (Screen.width/2-50, 30, 100, 100), magnet_icon);
-		GUI.DrawTexture (new Rect (Screen.width-150, 30, 100, 100), light_icon);
-
+		if (activePlayer == "heavycircle")
+		{
+			GUI.DrawTexture (new Rect (Screen.width/2-50, 30, 100, 100), magnet_icon);
+			GUI.DrawTexture (new Rect (Screen.width-150, 30, 100, 100), light_icon);
+			GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, timer);
+			GUI.DrawTexture (new Rect (50, 30, 100, 100), heavy_icon);
+		}
+		else if (activePlayer == "lightcircle")
+		{
+			GUI.DrawTexture (new Rect (50, 30, 100, 100), heavy_icon);
+			GUI.DrawTexture (new Rect (Screen.width/2-50, 30, 100, 100), magnet_icon);
+			GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, timer);
+			GUI.DrawTexture (new Rect (Screen.width-150, 30, 100, 100), light_icon);
+		}
+		else
+		{
+			GUI.DrawTexture (new Rect (50, 30, 100, 100), heavy_icon); 
+			GUI.DrawTexture (new Rect (Screen.width-150, 30, 100, 100), light_icon);
+			GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, timer);
+			GUI.DrawTexture (new Rect (Screen.width/2-50, 30, 100, 100), magnet_icon);
+		}
 	}
 	
 	private void FadeToBlack()

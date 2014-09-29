@@ -10,12 +10,12 @@ public class LevelController : MonoBehaviour
 
 	private float moveSpeed = 3500000000f;
 	private float lastGradient  = 0f;
-	private float currentAngle = 0f; // needed for computer controls
-	
+	//private float currentAngle = 0f; // needed for computer controls
+
 	void Awake()
 	{
 		HingeJoint2D hj = gameObject.AddComponent<HingeJoint2D>();
-		
+
 		//hj.useLimits = true;
 		//JointAngleLimits2D lim = hj.limits;
 		//lim.min = 0;
@@ -67,17 +67,4 @@ public class LevelController : MonoBehaviour
 
 		}
 	}
-	
-	/*void Update()
-	{
-		if(!gamePaused)
-		{
-			if(isActive)
-			{
-				float targetAngle = Input.GetAxis("Horizontal") * (flipXAxis ? -1 : 1);
-				currentAngle = Mathf.Lerp(currentAngle, targetAngle, Time.deltaTime);
-				transform.Rotate(new Vector3(0, 0, currentAngle) * moveSpeed * Time.deltaTime);
-			}
-		}
-	}*/
 }

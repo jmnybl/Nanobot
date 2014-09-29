@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 	private bool controlsEnabled = true;
 	public static bool isPaused = false;
 	
-	void Start()
+	void Awake()
 	{
 		instance = this;
 		square = transform.Find("square").gameObject;
@@ -23,7 +23,18 @@ public class PlayerController : MonoBehaviour
 		squareControl = square.GetComponent<SquareController>();
 		heavyControl = heavyCircle.GetComponent<HeavyObjectController>();
 		lightControl = lightCircle.GetComponent<LightObjectController>();
-		GameController.instance.activePlayer="heavycircle";
+		if (heavyCircle.activeSelf)
+		{
+			GameController.instance.activePlayer = "heavycircle";
+		}
+		else if (lightCircle.activeSelf)
+		{
+			GameController.instance.activePlayer = "lightcircle";
+		}
+		else
+		{
+			GameController.instance.activePlayer = "square";
+		}
 	}
 	
 	void Update()
@@ -90,7 +101,6 @@ public class PlayerController : MonoBehaviour
 					{
 						// do nothing
 					}
-
 				}
 			}
 			
@@ -105,11 +115,13 @@ public class PlayerController : MonoBehaviour
 				{
 					heavyControl.Enable(square);
 					squareControl.Disable();
+					GameController.instance.activePlayer = "heavycircle";
 				}
 				else if(lightCircle.activeSelf)
 				{
 					heavyControl.Enable(lightCircle);
 					lightControl.Disable();
+					GameController.instance.activePlayer = "heavycircle";
 				}
 			}
 			else if(Input.GetKey("2"))
@@ -118,11 +130,13 @@ public class PlayerController : MonoBehaviour
 				{
 					squareControl.Enable(heavyCircle);
 					heavyControl.Disable();
+					GameController.instance.activePlayer = "square";
 				}
 				else if(lightCircle.activeSelf)
 				{
 					squareControl.Enable(lightCircle);
 					lightControl.Disable();
+					GameController.instance.activePlayer = "square";
 				}
 			}
 			else if(Input.GetKey("3"))
@@ -131,17 +145,16 @@ public class PlayerController : MonoBehaviour
 				{
 					lightControl.Enable(heavyCircle);
 					heavyControl.Disable();
+					GameController.instance.activePlayer = "lightcircle";
 				}
 				else if(square.activeSelf)
 				{
 					lightControl.Enable(square);
 					squareControl.Disable();
+					GameController.instance.activePlayer = "lightcircle";
 				}
 			}
 		} // computer controls end
-
-
-
 	}
 	
 	public void Die()
